@@ -1,30 +1,194 @@
-# 🌠MCU调试器🌠
+# FPGA / MCU Debugger Collections
 
-🤣 某link v9 Mini(可升级的bootloader)
+**中文** | [English](./readme_en.md)
 
-🤣 STLINK V2-1(可升级的bootloader哦)
+自制 FPGA / MCU 调试器、逻辑分析仪、无线串口工具的硬件设计资料（原理图、PCB）、固件与制作教程合集。
 
-🤣 CMSIS-DAP两个版本-金手指版/microusb版
+[![GitHub issues](https://img.shields.io/github/issues/konosubakonoakua/FPGA_MCU_Debugger_Collections)](https://github.com/konosubakonoakua/FPGA_MCU_Debugger_Collections/issues)
 
-🤣 某link: OB(STM32F072版本)
+**注意：本项目仅供学习研究使用。**
 
-🤣 STLINK V2(with bootloader)
+---
 
-🤣 某link OB-STM32F103 V1版本制作(帶bootloader)
+## 目录
 
-🤣 某link STLINK V2/V2-1 版本制作2
+- [分类总览](#分类总览)
+- [仓库结构](#仓库结构)
+- [进行中的项目](#进行中的项目)
+- [通用制作步骤](#通用制作步骤)
+- [所需工具](#所需工具)
+- [注意事项](#注意事项)
+- [贡献](#贡献)
+- [相关链接](#相关链接)
 
-😳 ARM-Mbed DAPLink 制作（**未完成**）
+---
 
-😳 BlackMagicProbe 制作（**未完成**）
+## 分类总览
 
-😳 STLINKV3 制作（**未完成** ）
+| 分类 | 说明 | 子项目 | 状态 |
+|------|------|--------|------|
+| [JLink](<./JLink/readme.md>) | 自制 J-Link 系列 | V9 / V9 Mini / 隔离版 / OB 072 / OB F103 / ST-LINK 转刷 | ✅ 完整 |
+| [STLink](<./STLink/readme.md>) | ST-LINK 魔改与自制 | V2-1 魔改 / V3 / V3 Mini | ✅ V2-1 完整，V3 🚧 |
+| [DAPLink](<./DAPLink/readme.md>) | CMSIS-DAP 系列 | 有线（STM32F103/CH552/ESP32）+ 无线（ch32v208 推荐/ch32v307/esp32s3） | ✅ 完整 |
+| [BlackMagic](<./BlackMagic/readme.md>) | Black Magic Probe | 官方 + MioLink (RP2040) | 🔗 仅链接 |
+| [JTAG-FTDI](<./JTAG-FTDI/readme.md>) | Xilinx FTDI JTAG | hw-ftdi-jtag-xilinx（子模块，FT2232HQ） | ✅ 完整 |
+| [Xilinx Virtual Cable (XVC)](<./Xilinx Virtual Cable (XVC)/readme.md>) | 网络 JTAG (XVC) | xvc-pico / jtag-remote-server | 🔗 仅链接 |
+| [USBBlaster](<./USBBlaster/readme.md>) | Altera/Intel FPGA 下载器 | CH552Nano | 🔗 仅链接 |
+| [MiniWiggler](<./MiniWiggler/readme.md>) | 英飞凌三合一下载器 | DAP + JTAG + 串口 | ✅ 完整 |
+| [Logic Analyzer](<./Logic Analyzer/readme.md>) | 逻辑分析仪 | CH32H417 / CY7C68013A / Rpi Pico | 🔗 仅链接 |
+| [Serial Port Wireless](<./Serial Port Wireless/readme.md>) | 无线串口 | CH570 | ✅ 完整 |
 
-------
+---
 
-# 🌠FPGA调试器🌠
+## 仓库结构
 
-🤣 Xilinx FTDI JTAG Debugger (based on FT2232HQ)
+```
+FPGA_MCU_Debugger_Collections/
+├── JLink/                              # 自制 J-Link 系列
+│   ├── JlinkV9/                        #   J-Link V9 (LPC4322)
+│   ├── JlinkV9 mini/                   #   超小型 V9 (STM32F205)
+│   ├── JlinkV9 isoloated/              #   隔离版 V9
+│   ├── Jlink OB 072/                   #   J-Link OB (STM32F072)
+│   ├── J-Link OB-STM32F103 V1/         #   J-Link OB (STM32F103C8T6)
+│   └── JLink converted to STLINK V2 V2-1/  # ST-LINK V2 刷 J-Link OB
+├── STLink/                             # ST-LINK 系列
+│   ├── STLINKV2-1/                     #   V2 魔改 V2-1（含 st-decrypt 工具）
+│   └── STLINKV3/                       #   V3（MB1367 参考设计）+ v3 mini
+├── DAPLink/                            # CMSIS-DAP 系列
+│   ├── wired/                          #   有线：STM23F103x / CH552 / cmsis_dap_tcp_esp32
+│   └── Wireless/                       #   无线：ch32v208(推荐) / ch32v307 / esp32s3
+├── BlackMagic/                         # Black Magic Probe（链接）
+├── JTAG-FTDI/
+│   └── hw-ftdi-jtag-xilinx/            # Xilinx FTDI JTAG（Git 子模块）
+├── Xilinx Virtual Cable (XVC)/         # 网络 JTAG（链接）
+├── USBBlaster/                         # USB Blaster（CH552，链接）
+├── MiniWiggler/                        # 英飞凌三合一下载器
+├── Logic Analyzer/                     # 逻辑分析仪：CH32H417 / CY7C68013A / Rpi Pico
+├── Serial Port Wireless/               # 无线串口：CH570
+├── readme.md                           # 本文件（中文）
+└── readme_en.md                        # English version
+```
 
-**其他问题请提交issue**
+各调试器的芯片方案、文件清单与制作步骤见对应子目录 readme。
 
+---
+
+## 进行中的项目
+
+以下项目当前资料不完整，欢迎贡献：
+
+| 项目 | 状态 | 当前进度 |
+|------|------|----------|
+| [ARM-Mbed DAPLink](<./DAPLink/wired/STM23F103x/readme.md>) | 未完成 | 原理图 + PCB (Altium) 已上传，固件待补 |
+| [BlackMagic Probe](<./BlackMagic/readme.md>) | 未完成 | 仅收录官方项目链接 |
+| [ST-LINK V3](<./STLink/STLINKV3/readme.md>) | 未完成 | MB1367 参考设计原理图已上传，固件待补 |
+
+---
+
+## 通用制作步骤
+
+### 准备
+
+1. 根据所选项目打板（推荐嘉立创）
+2. 焊接所有元器件
+3. 准备一台可用的 SWD 编程器（ST-LINK / J-Link / DAP-Link）
+
+### 刷写 Bootloader
+
+1. 通过 SWD 接口连接编程器到目标板
+2. 使用对应工具擦除芯片：
+   - STM32CubeProgrammer / ST-LINK Utility
+   - J-Flash
+   - OpenOCD
+3. 刷入 bootloader 固件到芯片起始地址
+
+### 刷写固件
+
+不同调试器方式不同（详见各子目录 readme）：
+
+- **J-Link V9**：通过 J-Link Commander 自动升级 → [JLink/JlinkV9](<./JLink/JlinkV9/readme.md>)
+- **ST-LINK V2-1**：通过 ST-LINK Utility → Firmware Update 自动升级 → [STLink/STLINKV2-1](<./STLink/STLINKV2-1/readme.md>)
+- **CMSIS-DAP**：直接烧录 Keil 工程生成的固件 → [DAPLink/wired/STM23F103x](<./DAPLink/wired/STM23F103x/readme.md>)
+
+### 激活（仅 J-Link V9）
+
+刷完固件后需要在 J-Link Commander 中执行：
+
+```
+Exec SetSN=XXXXXXXX
+Exec AddFeature GDB
+Exec AddFeature RDI
+Exec AddFeature FlashBP
+Exec AddFeature FlashDL
+Exec AddFeature JFlash
+Exec AddFeature RDDI
+```
+
+> 将 `XXXXXXXX` 替换为你的序列号
+
+---
+
+## 所需工具
+
+### 硬件
+
+- SWD 编程器（任何可用的调试器均可）
+- 烙铁 + 焊锡（手焊，推荐刀头烙铁）
+- 万用表（排查焊接问题）
+
+### 软件
+
+| 工具 | 用途 |
+|------|------|
+| [J-Link Commander](https://www.segger.com/downloads/jlink/) | J-Link V9 激活、固件升级 |
+| [ST-LINK Utility / STM32CubeProgrammer](https://www.st.com) | ST-LINK 固件刷写 |
+| [Altium Designer / KiCad](https://www.kicad.org) | 查看/编辑 PCB 工程 |
+| [Keil MDK](https://www.keil.com) | 编译 CMSIS-DAP 源码 |
+| [MounRiver Studio](http://www.mounriver.com/) | 编译 CH32 系列源码（无线 DAPLink、CH570 等） |
+| [FT_Prog](https://ftdichip.com/utilities/) | FTDI 芯片配置烧录（MiniWiggler、FTDI JTAG） |
+| [Sigrok PulseView](https://sigrok.org/wiki/PulseView) | 逻辑分析仪上位机 |
+| [OpenOCD](https://openocd.org) | 通用调试器工具链 |
+
+---
+
+## 注意事项
+
+### 安全与法律声明
+
+> **警告：本项目仅供学习研究使用。**
+>
+> 本仓库仅提供硬件参考设计和制作方法。固件文件来自于各调试器官方工具（J-Link、ST-LINK 等）提取或生成。
+>
+> - Segger J-Link 是 [SEGGER Microcontroller GmbH](https://www.segger.com) 的注册商标
+> - ST-LINK 是 [STMicroelectronics](https://www.st.com) 的注册商标
+> - ARM、CMSIS 是 [Arm Limited](https://www.arm.com) 的注册商标
+>
+> 使用本项目制作的调试器可能违反原厂商的许可协议。请在合法范围内使用。
+
+### 其他说明
+
+- STM32F103C8T6 有 64KB 和 128KB Flash 两个版本，部分固件可能要求 128KB 版本
+- 焊接 0402 封装元件需要一定焊接经验，建议使用刀头烙铁
+- 如果遇到识别问题，先检查焊接和供电，再检查 SWD 连接
+
+---
+
+## 贡献
+
+欢迎提交 Issue 或 Pull Request。
+
+- 发现 bug 或问题 → 提交 [Issue](https://github.com/konosubakonoakua/FPGA_MCU_Debugger_Collections/issues)
+- 想要完善未完成的项目 → 联系作者或提交 PR
+
+---
+
+## 相关链接
+
+- [J-Link 官方](https://www.segger.com)
+- [ST-LINK 官方](https://www.st.com)
+- [CMSIS-DAP 规范](https://arm-software.github.io/CMSIS_5/DAP/html/index.html)
+- [DAPLink 官方](https://github.com/ARMmbed/DAPLink)
+- [BlackMagic Probe 官方](https://black-magic.org)
+- [OpenOCD](https://openocd.org)
+- [沁恒 WCH](https://www.wch.cn)
+- [Sigrok](https://sigrok.org)

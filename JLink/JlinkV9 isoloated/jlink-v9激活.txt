@@ -1,0 +1,17 @@
+在JLINK的command下依次运行如下命令  
+
+Exec SetSN=59788888,0x9C2BCC2A     ;添加SN 
+Exec AddFeature GDB      	;添加GDB 
+Exec AddFeature RDI     	;添加RDI 
+Exec AddFeature FlashBP  	;添加FlashBP  
+Exec AddFeature FlashDL 	 ;添加FlashDL 
+Exec AddFeature JFlash   	;添加JFlash 
+Exec AddFeature RDDI     	;添加RDDI
+
+Exec GetSNChecksum
+
+ v9.5 29534567
+ v9.6 20684568
+ v9.7 59768882
+
+专属JLink-V9功能添加命令！
